@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import optparse
+import codecs
+
+__author__ = "d-fens"
+__version__ = '0.1'
+__copyright__ = 'Copyright (c) 2009 d-fens'
+__license__ = 'MIT License'
+
+if __name__ == '__main__':
+	p = optparse.OptionParser(description='Display NFO files in modern unicode-aware terminals just like they looked back in the 1990s.',
+		prog='nfoview',
+		version='%prog ' + __version__,
+		usage='%prog filename')
+
+	options, arguments = p.parse_args()
+
+	if len(arguments) == 1:
+		if os.path.exists(arguments[0]):
+			f = codecs.open(arguments[0], mode='r', encoding='cp437', errors='ignore')
+			for line in f:
+				print line.encode('utf-8'),
+			f.close()
+		else:
+			print "Input file does not exist."
+	else:
+		p.print_help()
